@@ -7,6 +7,7 @@ steps:
   # Este paso usa el builder de npm para ejecutar 'npm install'.
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
+  dir: 'frontend'
   id: 'npm-install'
 
   # 2. Compilar la aplicación
@@ -14,6 +15,7 @@ steps:
   # se inyectan desde las variables de sustitución del activador de Cloud Build.
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'build']
+  dir: 'frontend'
   id: 'npm-build'
   env:
     - 'REACT_APP_API_KEY=${_REACT_APP_API_KEY}'
@@ -28,6 +30,7 @@ steps:
   # Este paso ejecuta 'npm run deploy' para desplegar a Firebase Hosting.
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'deploy']
+  dir: 'frontend'
   id: 'deploy-to-firebase'
   waitFor: ['npm-build']
   env:
