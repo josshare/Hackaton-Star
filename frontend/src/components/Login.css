@@ -146,6 +146,11 @@
     transition: all 0.2s ease-in-out;
   }
   
+  .login-page .input-field::placeholder {
+    color: hsl(var(--muted-foreground));
+    opacity: 0.6;
+  }
+  
   .login-page .input-field:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
@@ -321,5 +326,85 @@
     right: 0;
     opacity: 0.2;
     color: hsl(var(--accent));
+  }
+
+  /* Additional enhancements */
+  .login-page .login-form-container {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  .login-page .hero-content {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .login-page .input-field:hover {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 1px hsla(var(--primary), 0.1);
+  }
+
+  .login-page .submit-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-page .submit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .login-page .submit-button:hover::before {
+    left: 100%;
+  }
+
+  .login-page .logo-container {
+    transition: transform 0.3s ease;
+  }
+
+  .login-page .logo-container:hover {
+    transform: scale(1.05);
+  }
+
+  /* Mobile responsiveness improvements */
+  @media (max-width: 768px) {
+    .login-page .right-panel {
+      padding: 1rem;
+    }
+    
+    .login-page .login-form-container {
+      max-width: 100%;
+    }
+    
+    .hero-stats {
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
   
