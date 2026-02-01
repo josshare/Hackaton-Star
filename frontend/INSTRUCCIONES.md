@@ -30,13 +30,13 @@ El siguiente comando creará el bucket donde se alojará tu web.
 BUCKET_NAME="team-42a8d-frontend"
 
 # 2. Crea el bucket
-спользуй gsutil mb -p team-42a8d -l US-CENTRAL1 gs://${BUCKET_NAME}
+ gsutil mb -p team-42a8d -l US-CENTRAL1 gs://${BUCKET_NAME}
 
 # 3. Configura el bucket para alojar una web (importante para React Router)
-спользуй gsutil web set -m index.html -e index.html gs://${BUCKET_NAME}
+ gsutil web set -m index.html -e index.html gs://${BUCKET_NAME}
 
 # 4. Otorga permisos públicos de lectura al bucket para que sea una web pública
-спользуй gsutil iam ch allUsers:objectViewer gs://${BUCKET_NAME}
+ gsutil iam ch allUsers:objectViewer gs://${BUCKET_NAME}
 
 # 5. Otorga permisos a la cuenta de servicio de Cloud Build para que pueda escribir en el bucket
 PROJECT_NUMBER=$(gcloud projects describe team-42a8d --format="value(projectNumber)")
