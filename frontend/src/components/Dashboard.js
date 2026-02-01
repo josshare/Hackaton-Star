@@ -1,14 +1,21 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { FolderPlus, LogOut, Plus } from "lucide-react";
 import "./Dashboard.css";
 
-export default function Dashboard({ onCreateProject, projects, onLogout }) {
+export default function Dashboard({ projects, onLogout }) {
+  const history = useHistory();
+
+  function handleCreateProject() {
+    history.push("/new-project");
+  }
+
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <h1 className="app-title">AquaPredict</h1>
         <div className="header-actions">
-          <button className="btn-new-project" onClick={onCreateProject}>
+          <button className="btn-new-project" onClick={handleCreateProject}>
             <Plus size={20} />
             Nuevo Proyecto
           </button>
@@ -35,7 +42,7 @@ export default function Dashboard({ onCreateProject, projects, onLogout }) {
                 <p className="empty-description">
                   Crea tu primer proyecto para comenzar a organizar tus análisis de estrés hídrico.
                 </p>
-                <button className="btn-create-first-project" onClick={onCreateProject}>
+                <button className="btn-create-first-project" onClick={handleCreateProject}>
                   <Plus size={20} />
                   Crear Primer Proyecto
                 </button>
