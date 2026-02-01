@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { FolderPlus, LogOut, Plus } from "lucide-react";
 import "./Dashboard.css";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
   const history = useHistory();
 
   async function handleLogout() {
     setError("");
-
     try {
-      await logout();
+      // Simulate logout - redirect to login
       history.push("/login");
     } catch {
       setError("Failed to log out");
