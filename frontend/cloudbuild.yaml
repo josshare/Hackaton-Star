@@ -14,7 +14,7 @@ steps:
   # 2. Compilar la aplicación
   # Este paso ejecuta 'npm run build'. Las variables de entorno para Firebase
   # se inyectan desde las variables de sustitución del activador de Cloud Build.
-- name: 'node:20'
+- name: 'node:25'
   entrypoint: 'npm'
   args: ['run', 'build']
   dir: 'frontend'
@@ -31,7 +31,7 @@ steps:
 
   # 3. Desplegar a Firebase Hosting
   # Este paso ejecuta 'npm run deploy' para desplegar a Firebase Hosting.
-- name: 'node:20'
+- name: 'node:25'
   entrypoint: 'npm'
   args: ['run', 'deploy']
   dir: 'frontend'
