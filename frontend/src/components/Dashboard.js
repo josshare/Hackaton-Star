@@ -1,32 +1,18 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import { FolderPlus, LogOut, Plus } from "lucide-react";
 import "./Dashboard.css";
 
-export default function Dashboard() {
-  const [error, setError] = useState("");
-  const history = useHistory();
-
-  async function handleLogout() {
-    setError("");
-    try {
-      // Simulate logout - redirect to login
-      history.push("/login");
-    } catch {
-      setError("Failed to log out");
-    }
-  }
-
+export default function Dashboard({ onCreateProject, projects, onLogout }) {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <h1 className="app-title">AquaPredict</h1>
         <div className="header-actions">
-          <button className="btn-new-project" onClick={() => {/* TODO: Implement create project */}}>
+          <button className="btn-new-project" onClick={onCreateProject}>
             <Plus size={20} />
             Nuevo Proyecto
           </button>
-          <button className="btn-logout" onClick={handleLogout} title="Cerrar sesión">
+          <button className="btn-logout" onClick={onLogout} title="Cerrar sesión">
             <LogOut size={20} />
           </button>
         </div>
@@ -40,24 +26,34 @@ export default function Dashboard() {
           </p>
           
           <div className="projects-content">
-            <div className="empty-state">
-              <div className="empty-icon">
-                <FolderPlus size={64} />
+            {projects.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-icon">
+                  <FolderPlus size={64} />
+                </div>
+                <h3 className="empty-title">Sin proyectos</h3>
+                <p className="empty-description">
+                  Crea tu primer proyecto para comenzar a organizar tus análisis de estrés hídrico.
+                </p>
+                <button className="btn-create-first-project" onClick={onCreateProject}>
+                  <Plus size={20} />
+                  Crear Primer Proyecto
+                </button>
               </div>
-              <h3 className="empty-title">Sin proyectos</h3>
-              <p className="empty-description">
-                Crea tu primer proyecto para comenzar a organizar tus análisis de estrés hídrico.
-              </p>
-              <button className="btn-create-first-project" onClick={() => {/* TODO: Implement create project */}}>
-                <Plus size={20} />
-                Crear Primer Proyecto
-              </button>
-            </div>
+            ) : (
+              <div className="project-list">
+                {projects.map(project => (
+                  <div key={project.id} className="project-card">
+                    <h3 className="project-title">{project.name}</h3>
+                    <p className="project-description">{project.description}</p>
+                    <p className="project-date">Creado: {project.createdAt}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>
-
-      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }
