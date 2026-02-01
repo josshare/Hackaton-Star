@@ -5,7 +5,7 @@
 steps:
   # 1. Instalar dependencias
   # Este paso usa el builder de npm para ejecutar 'npm install'.
-- name: 'node:20'
+- name: 'node:25'
   entrypoint: 'npm'
   args: ['install']
   dir: 'frontend'
