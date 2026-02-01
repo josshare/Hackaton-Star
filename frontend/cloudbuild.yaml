@@ -1,0 +1,48 @@
+# cloudbuild.yaml
+# Este archivo define el pipeline de Despliegue Continuo para la aplicación de React.
+# Es ejecutado por Google Cloud Build en cada push a la rama principal.
+
+steps:
+  # 1. Instalar dependencias
+  # Este paso usa el builder de npm para ejecutar 'npm install'.
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  id: 'npm-install'
+
+  # 2. Compilar la aplicación
+  # Este paso ejecuta 'npm run build'. Las variables de entorno para Firebase
+  # se inyectan desde las variables de sustitución del activador de Cloud Build.
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+  id: 'npm-build'
+  env:
+    - 'REACT_APP_API_KEY=${_REACT_APP_API_KEY}'
+    - 'REACT_APP_AUTH_DOMAIN=${_REACT_APP_AUTH_DOMAIN}'
+    - 'REACT_APP_PROJECT_ID=${_REACT_APP_PROJECT_ID}'
+    - 'REACT_APP_STORAGE_BUCKET=${_REACT_APP_STORAGE_BUCKET}'
+    - 'REACT_APP_MESSAGING_SENDER_ID=${_REACT_APP_MESSAGING_SENDER_ID}'
+    - 'REACT_APP_APP_ID=${_REACT_APP_APP_ID}'
+  waitFor: ['npm-install']
+
+  # 3. Desplegar a Firebase Hosting
+  # Este paso ejecuta 'npm run deploy' para desplegar a Firebase Hosting.
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'deploy']
+  id: 'deploy-to-firebase'
+  waitFor: ['npm-build']
+  env:
+    - 'FIREBASE_TOKEN=${_FIREBASE_TOKEN}'
+
+# Las variables de sustitución deben ser configuradas en el activador de Cloud Build.
+substitutions:
+  _FIREBASE_TOKEN: 'your-firebase-deploy-token' # Valor por defecto, se define en el activador.
+  _REACT_APP_API_KEY: ''
+  _REACT_APP_AUTH_DOMAIN: ''
+  _REACT_APP_PROJECT_ID: ''
+  _REACT_APP_STORAGE_BUCKET: ''
+  _REACT_APP_MESSAGING_SENDER_ID: ''
+  _REACT_APP_APP_ID: ''
+
+# Opcional: Usar una máquina con más CPUs para acelerar la compilación.
+options:
+  machineType: 'E2_HIGHCPU_8'
