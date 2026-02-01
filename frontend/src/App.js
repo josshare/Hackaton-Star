@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import NewProject from "./components/NewProject";
 import NewDashboard from "./components/NewDashboard";
+import PredictionDashboard from "./components/PredictionDashboard";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -38,6 +39,7 @@ function App() {
           <NewProject onCreateProject={handleCreateProject} />
         )} />
         <Route path="/new-dashboard" component={NewDashboard} />
+        <Route path="/prediction-dashboard" component={PredictionDashboard} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
       </Switch>

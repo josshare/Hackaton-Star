@@ -17,15 +17,14 @@ export default function NewDashboard() {
   function handleSubmit(e) {
     e.preventDefault();
     if (dashboardName.trim() && postalCode.trim()) {
-      // Create dashboard logic here
-      console.log("Creating dashboard:", {
-        name: dashboardName,
-        postalCode: postalCode,
-        socialCategory: socialCategory,
-        homeSize: homeSize,
-        project: projectName
+      // Navigate to PredictionDashboard with dashboard and project names
+      history.push({
+        pathname: "/prediction-dashboard",
+        state: { 
+          dashboardName: dashboardName.trim(),
+          projectName: projectName
+        }
       });
-      history.push("/");
     }
   }
 
