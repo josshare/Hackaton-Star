@@ -37,12 +37,9 @@ steps:
   dir: 'frontend'
   id: 'deploy-to-firebase'
   waitFor: ['npm-build']
-  env:
-    - 'FIREBASE_TOKEN=${_FIREBASE_TOKEN}'
 
 # Las variables de sustitución deben ser configuradas en el activador de Cloud Build.
 substitutions:
-  _FIREBASE_TOKEN: 'your-firebase-deploy-token' # Valor por defecto, se define en el activador.
   _REACT_APP_API_KEY: ''
   _REACT_APP_AUTH_DOMAIN: ''
   _REACT_APP_PROJECT_ID: ''
