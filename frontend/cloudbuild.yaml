@@ -5,7 +5,7 @@
 steps:
   # 1. Instalar dependencias
   # Este paso usa el builder de npm para ejecutar 'npm install'.
-- name: 'gcr.io/cloud-builders/npm:node-18.12.0'
+- name: 'gcr.io/cloud-builders/npm:node-20.11.1'
   args: ['install']
   dir: 'frontend'
   id: 'npm-install'
@@ -13,12 +13,11 @@ steps:
   # 2. Compilar la aplicación
   # Este paso ejecuta 'npm run build'. Las variables de entorno para Firebase
   # se inyectan desde las variables de sustitución del activador de Cloud Build.
-- name: 'gcr.io/cloud-builders/npm:node-18.12.0'
+- name: 'gcr.io/cloud-builders/npm:node-20.11.1'
   args: ['run', 'build']
   dir: 'frontend'
   id: 'npm-build'
   env:
-    - 'NODE_OPTIONS=--openssl-legacy-provider'
     - 'REACT_APP_API_KEY=${_REACT_APP_API_KEY}'
     - 'REACT_APP_AUTH_DOMAIN=${_REACT_APP_AUTH_DOMAIN}'
     - 'REACT_APP_PROJECT_ID=${_REACT_APP_PROJECT_ID}'
@@ -29,7 +28,7 @@ steps:
 
   # 3. Desplegar a Firebase Hosting
   # Este paso ejecuta 'npm run deploy' para desplegar a Firebase Hosting.
-- name: 'gcr.io/cloud-builders/npm:node-18.12.0'
+- name: 'gcr.io/cloud-builders/npm:node-20.11.1'
   args: ['run', 'deploy']
   dir: 'frontend'
   id: 'deploy-to-firebase'
