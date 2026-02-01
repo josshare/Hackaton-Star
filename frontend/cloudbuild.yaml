@@ -20,6 +20,7 @@ steps:
   dir: 'frontend'
   id: 'npm-build'
   env:
+    - 'NODE_OPTIONS=--openssl-legacy-provider'
     - 'REACT_APP_API_KEY=${_REACT_APP_API_KEY}'
     - 'REACT_APP_AUTH_DOMAIN=${_REACT_APP_AUTH_DOMAIN}'
     - 'REACT_APP_PROJECT_ID=${_REACT_APP_PROJECT_ID}'
